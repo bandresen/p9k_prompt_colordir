@@ -100,6 +100,11 @@ shrink_path () {
 P9K_WS_BLS=$POWERLEVEL9K_WHITESPACE_BETWEEN_LEFT_SEGMENTS
 P9K_WS_BRS=$POWERLEVEL9K_WHITESPACE_BETWEEN_RIGHT_SEGMENTS
 
+P9K_COLORDIR_DIR_BG="blue"
+P9K_COLORDIR_DIR_FG="WHITE"
+P9K_COLORDIR_BASE_BG="blue"
+P9K_COLORDIR_BASE_FG="${DEFAULT_COLOR}"
+
 # colordir+colorbase have to be joined to work (colordir colorbase_joined)
 
 prompt_colordir() {
@@ -110,8 +115,8 @@ prompt_colordir() {
     # ~ should be part of base
     [[ $segment == "~" ]] && segment=""
 
-    "$1_prompt_segment" "$0" "$2" "blue" "$DEFAULT_COLOR" " ${segment}" ''
-    # ^ kP         icon  ^    ^kP  ^ bg   ^ fg             ^ text            ^ icon
+    "$1_prompt_segment" "$0" "$2" "${P9K_COLORDIR_DIR_BG}" "${P9K_COLORDIR_DIR_FG}" " ${segment}" ''
+    # ^ kP         icon  ^    ^kP  ^ bg                     ^ fg                     ^ text        ^ icon
 }
 
 prompt_colorbase() {
@@ -125,6 +130,6 @@ prompt_colorbase() {
         # ~ and / are special
         local segment=$shrinked
     fi
-    "$1_prompt_segment" "$0" "$2" "blue" "WHITE" "${segment}" ''
-    # ^ kP         icon  ^    ^kP  ^ bg   ^ fg             ^ text            ^ icon
+    "$1_prompt_segment" "$0" "$2" "${P9K_COLORDIR_BASE_BG}" "${P9K_COLORDIR_BASE_FG}" " ${segment}" ''
+    # ^ kP         icon  ^    ^kP  ^ bg                      ^ fg                      ^ text        ^ icon
 }
