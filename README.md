@@ -20,3 +20,13 @@ Add `colordir colorbase_joined` to for example
 ```bash
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(... colordir colorbase_joined ...)
 ```
+
+### Colors
+
+Variables to change with accompanying default values
+```bash
+P9K_COLORDIR_DIR_BG="blue"
+P9K_COLORDIR_DIR_FG="WHITE"
+P9K_COLORDIR_BASE_BG="blue"
+P9K_COLORDIR_BASE_FG="${DEFAULT_COLOR}"
+```
