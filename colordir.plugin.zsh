@@ -83,7 +83,11 @@ shrink_path () {
                            (( i++ ))
                            part+=$dir[$i]
                            expn=($(echo ${part}*(-/)))
-                           (( short )) && break
+                           (( short )) && {
+                               # if dir=hidden then show one character more
+                               [ $part = "." ] && part+=$dir[$(( $i + 1 ))]
+                               break
+                           }
                      done
                            result+="/$part"
                            cd -q $dir
