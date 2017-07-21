@@ -2,7 +2,7 @@
 
 Credit for shrink_path goes to [Daniel Friesel](https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/shrink-path)
 
-![](https://raw.githubusercontent.com/bandresen/p9k_prompt_colordir/master/screenshot.png)
+![](https://raw.githubusercontent.com/bandresen/p9k_prompt_colordir/screenshots/screenshot.png)
 
 ## Installation
 
