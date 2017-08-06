@@ -56,45 +56,45 @@ shrink_path () {
 
     [[ -d $dir ]] || return 0
 
-    if (( named )) {
-           for part in ${(k)nameddirs}; {
-               [[ $dir == ${nameddirs[$part]}(/*|) ]] && dir=${dir/${nameddirs[$part]}/\~$part}
-           }
-       }
-       (( tilde )) && dir=${dir/$HOME/\~}
-       tree=(${(s:/:)dir})
-       (
-           if [[ $tree[1] == \~* ]] {
-                  cd -q ${~tree[1]}
-                  result=$tree[1]
-                  shift tree
-              } else {
-                  cd -q /
-              }
-              for dir in $tree; {
-                  if (( lastfull && $#tree == 1 )) {
-                         result+="/$tree"
-                         break
-                     }
-                     expn=(a b)
-                     part=''
-                     i=0
-                     until [[ (( ${#expn} == 1 )) || $dir = $expn || $i -gt 99 ]]  do
-                           (( i++ ))
-                           part+=$dir[$i]
-                           expn=($(echo ${part}*(-/)))
-                           (( short )) && {
-                               # if dir=hidden then show one character more
-                               [ $part = "." ] && part+=$dir[$(( $i + 1 ))]
-                               break
-                           }
-                     done
-                           result+="/$part"
-                           cd -q $dir
-                           shift tree
-              }
-                         echo ${result:-/}
-       )
+    if (( named )); then
+        for part in ${(k)nameddirs}; do
+            [[ $dir == ${nameddirs[$part]}(/*|) ]] && dir=${dir/${nameddirs[$part]}/\~$part}
+        done
+    fi
+    (( tilde )) && dir=${dir/$HOME/\~}
+    tree=(${(s:/:)dir})
+    (
+        if [[ $tree[1] == \~* ]]; then
+            cd -q ${~tree[1]}
+            result=$tree[1]
+            shift tree
+        else
+            cd -q /
+        fi
+        for dir in $tree; do
+            if (( lastfull && $#tree == 1 )); then 
+                result+="/$tree"
+                break
+            fi
+            expn=(a b)
+            part=''
+            i=0
+            until [[ (( ${#expn} == 1 )) || $dir = $expn || $i -gt 99 ]]; do
+                (( i++ ))
+                part+=$dir[$i]
+                expn=($(echo ${part}*(-/)))
+                (( short )) && {
+                    # if dir=hidden then show one character more
+                    [ $part = "." ] && part+=$dir[$(( $i + 1 ))]
+                    break
+                }
+            done
+            result+="/$part"
+            cd -q $dir
+            shift tree
+        done
+        echo ${result:-/}
+    )
 }
 
 P9K_WS_BLS=$POWERLEVEL9K_WHITESPACE_BETWEEN_LEFT_SEGMENTS
