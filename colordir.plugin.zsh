@@ -110,7 +110,8 @@ P9K_COLORDIR_BASE_FG="${DEFAULT_COLOR}"
 prompt_colordir() {
     POWERLEVEL9K_WHITESPACE_BETWEEN_LEFT_SEGMENTS="" # disable whitespace for this segment
     POWERLEVEL9K_WHITESPACE_BETWEEN_RIGHT_SEGMENTS=""
-    local segment=${$(shrink_path -f $PWD)/$(basename $PWD)/}
+    local shrunk=$(shrink_path -f $PWD)
+    local segment=${shrunk//$(basename $PWD)/}
 
     # ~ should be part of base
     [[ $segment == "~" ]] && segment=""
@@ -130,6 +131,6 @@ prompt_colorbase() {
         # ~ and / are special
         local segment=$shrinked
     fi
-    "$1_prompt_segment" "$0" "$2" "${P9K_COLORDIR_BASE_BG}" "${P9K_COLORDIR_BASE_FG}" " ${segment}" ''
+    "$1_prompt_segment" "$0" "$2" "${P9K_COLORDIR_BASE_BG}" "${P9K_COLORDIR_BASE_FG}" "${segment}" ''
     # ^ kP         icon  ^    ^kP  ^ bg                      ^ fg                      ^ text        ^ icon
 }
